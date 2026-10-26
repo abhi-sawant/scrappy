@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1121">
+<title>Scrappy — carousel maker</title>
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Scrappy">
+</head>
+<body>
+
+<!-- Authored sticker + placeholder art. Colours come from --c1/--c2 set on the <svg class="sticker">. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="cdg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f1ff"/><stop offset=".35" stop-color="#bfe3ff"/>
+      <stop offset=".62" stop-color="#ffd6ec"/><stop offset="1" stop-color="#e6f7d5"/>
+    </linearGradient>
+    <radialGradient id="lens" cx=".4" cy=".35" r=".8">
+      <stop offset="0" stop-color="#9ad6ff"/><stop offset="1" stop-color="#27489a"/>
+    </radialGradient>
+    <linearGradient id="phsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fcdf7"/><stop offset="1" stop-color="#e3f4ff"/>
+    </linearGradient>
+  </defs>
+
+  <symbol id="ph-art" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+    <rect width="200" height="200" fill="url(#phsky)"/>
+    <g fill="#fff"><circle cx="52" cy="46" r="15"/><circle cx="72" cy="40" r="19"/><circle cx="92" cy="48" r="14"/><rect x="40" y="46" width="66" height="16" rx="8"/></g>
+    <path d="M0 150 C40 112 90 120 130 140 C160 154 185 150 200 140 V200 H0Z" fill="#b7d86b"/>
+    <path d="M0 168 C50 140 110 150 150 168 C175 178 190 176 200 172 V200 H0Z" fill="#7fae2c"/>
+  </symbol>
+
+  <symbol id="st-star" viewBox="0 0 100 100">
+    <path d="M50 8 L61.5 37.5 L93 39.5 L68.5 59.5 L76.5 90 L50 73 L23.5 90 L31.5 59.5 L7 39.5 L38.5 37.5Z" fill="var(--c1,#ff5c93)" stroke="var(--c1,#ff5c93)" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M50 8 L61.5 37.5 L93 39.5 L68.5 59.5 L76.5 90 L50 73 L23.5 90 L31.5 59.5 L7 39.5 L38.5 37.5Z" fill="var(--c2,#ffd1e6)" transform="translate(50 54) scale(.55) translate(-50 -54)" stroke="var(--c2,#ffd1e6)" stroke-width="6" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="st-flower" viewBox="0 0 100 100">
+    <g fill="var(--c1,#ff6b2c)">
+      <ellipse cx="50" cy="27" rx="15" ry="23"/><ellipse cx="50" cy="27" rx="15" ry="23" transform="rotate(72 50 50)"/>
+      <ellipse cx="50" cy="27" rx="15" ry="23" transform="rotate(144 50 50)"/><ellipse cx="50" cy="27" rx="15" ry="23" transform="rotate(216 50 50)"/>
+      <ellipse cx="50" cy="27" rx="15" ry="23" transform="rotate(288 50 50)"/>
+    </g>
+    <circle cx="50" cy="50" r="13" fill="var(--c2,#ffd25e)"/><circle cx="50" cy="50" r="5.5" fill="#000" opacity=".14"/>
+  </symbol>
+
+  <symbol id="st-sun" viewBox="0 0 100 100">
+    <g fill="#ffb63d">
+      <rect x="46" y="1" width="8" height="17" rx="4"/><rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(30 50 50)"/>
+      <rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(60 50 50)"/><rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(90 50 50)"/>
+      <rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(120 50 50)"/><rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(150 50 50)"/>
+      <rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(180 50 50)"/><rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(210 50 50)"/>
+      <rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(240 50 50)"/><rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(270 50 50)"/>
+      <rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(300 50 50)"/><rect x="46" y="1" width="8" height="17" rx="4" transform="rotate(330 50 50)"/>
+    </g>
+    <circle cx="50" cy="50" r="31" fill="#ffd964"/>
+    <ellipse cx="41" cy="47" rx="3" ry="4" fill="#7a4a1d"/><ellipse cx="59" cy="47" rx="3" ry="4" fill="#7a4a1d"/>
+    <path d="M41 58 Q50 67 59 58" stroke="#7a4a1d" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="33" cy="57" r="5" fill="#ff8f7c" opacity=".6"/><circle cx="67" cy="57" r="5" fill="#ff8f7c" opacity=".6"/>
+  </symbol>
+
+  <symbol id="st-cat" viewBox="0 0 120 100">
+    <path d="M104 88 C124 78 122 54 106 50" fill="none" stroke="#14141c" stroke-width="9" stroke-linecap="round"/>
+    <path d="M14 92 C10 62 26 50 52 50 L74 50 C100 52 108 74 100 92 Z" fill="#14141c"/>
+    <circle cx="42" cy="38" r="22" fill="#14141c"/>
+    <path d="M22 28 L24 4 L40 18 Z M62 28 L60 4 L44 18 Z" fill="#14141c" stroke="#14141c" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="33" cy="38" rx="4.6" ry="5.6" fill="#fff"/><ellipse cx="51" cy="38" rx="4.6" ry="5.6" fill="#fff"/>
+    <circle cx="34" cy="39" r="2.4" fill="#14141c"/><circle cx="52" cy="39" r="2.4" fill="#14141c"/>
+    <path d="M10 44 L24 46 M10 52 L24 50 M74 46 L88 44 M74 50 L88 52" stroke="#fff" stroke-opacity=".55" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="st-bear" viewBox="0 0 100 110">
+    <ellipse cx="50" cy="90" rx="28" ry="20" fill="#e8b79c"/>
+    <circle cx="24" cy="22" r="13" fill="#efc3a8"/><circle cx="24" cy="22" r="6.5" fill="#d9967a"/>
+    <circle cx="76" cy="22" r="13" fill="#efc3a8"/><circle cx="76" cy="22" r="6.5" fill="#d9967a"/>
+    <circle cx="50" cy="48" r="33" fill="#efc3a8"/>
+    <ellipse cx="50" cy="58" rx="14" ry="11" fill="#fbe3d3"/><ellipse cx="50" cy="53" rx="4.5" ry="3.3" fill="#7b4a3b"/>
+    <path d="M50 56 V60 M44 61 Q50 66 56 61" stroke="#7b4a3b" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <circle cx="38" cy="44" r="3.2" fill="#3a2420"/><circle cx="62" cy="44" r="3.2" fill="#3a2420"/>
+    <circle cx="30" cy="56" r="5" fill="#ff9a98" opacity=".55"/><circle cx="70" cy="56" r="5" fill="#ff9a98" opacity=".55"/>
+    <ellipse cx="30" cy="84" rx="9" ry="7" fill="#efc3a8"/><ellipse cx="70" cy="84" rx="9" ry="7" fill="#efc3a8"/>
+  </symbol>
+
+  <symbol id="st-cd" viewBox="0 0 100 100">
+    <path fill-rule="evenodd" d="M50 3a47 47 0 1 0 .01 0Z M50 42a8 8 0 1 1-.01 0Z" fill="url(#cdg)" stroke="#fff" stroke-width="3"/>
+    <circle cx="50" cy="50" r="20" fill="#fff" opacity=".5"/><circle cx="50" cy="50" r="9" fill="none" stroke="#c9bfd6" stroke-width="2"/>
+    <path d="M18 42 A33 33 0 0 1 42 17" stroke="#fff" stroke-width="4" opacity=".9" fill="none" stroke-linecap="round"/>
+    <g fill="#fff"><circle cx="30" cy="74" r="6"/><circle cx="40" cy="72" r="8"/><circle cx="50" cy="75" r="6"/><rect x="26" y="74" width="30" height="8" rx="4"/></g>
+  </symbol>
+
+  <symbol id="st-plane" viewBox="0 0 100 100">
+    <polygon points="4,46 96,8 62,92 48,60" fill="#fff" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>
+    <polygon points="48,60 96,8 40,50" fill="#c7d9ee"/><polygon points="48,60 62,92 56,56" fill="#e5eef8"/>
+  </symbol>
+
+  <symbol id="st-sparkle" viewBox="0 0 100 100">
+    <path d="M50 0 Q54 46 100 50 Q54 54 50 100 Q46 54 0 50 Q46 46 50 0Z" fill="var(--c1,#fff)"/>
+  </symbol>
+
+  <symbol id="st-heart" viewBox="0 0 100 100">
+    <path d="M50 88 C14 62 6 42 14 26 C22 11 42 14 50 30 C58 14 78 11 86 26 C94 42 86 62 50 88Z" fill="var(--c1,#ff4d7d)" stroke="var(--c1,#ff4d7d)" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M24 30 C28 22 38 22 42 30" stroke="#fff" stroke-opacity=".6" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="st-cloud" viewBox="0 0 100 70">
+    <path d="M24 62 Q3 62 6 44 Q9 30 26 32 Q30 10 54 12 Q74 12 78 32 Q97 30 95 48 Q93 62 76 62 Z" fill="#fff"/>
+    <path d="M24 62 Q3 62 6 48 L94 52 Q92 62 76 62 Z" fill="#cfe3f5" opacity=".7"/>
+  </symbol>
+
+  <symbol id="st-burst" viewBox="0 0 100 100">
+    <g stroke="#fff" stroke-width="9" stroke-linecap="round"><path d="M12 60 L38 66"/><path d="M26 28 L46 44"/><path d="M62 10 L66 38"/></g>
+    <g stroke="#111" stroke-width="3" stroke-linecap="round" opacity=".9"><path d="M12 60 L38 66"/><path d="M26 28 L46 44"/><path d="M62 10 L66 38"/></g>
+  </symbol>
+
+  <symbol id="st-bubble" viewBox="0 0 100 80">
+    <path d="M18 6 H82 Q96 6 96 20 V46 Q96 60 82 60 H52 L34 76 L36 60 H18 Q4 60 4 46 V20 Q4 6 18 6Z" fill="#fff"/>
+    <path d="M50 46 C32 34 30 24 36 20 C41 16 48 19 50 25 C52 19 59 16 64 20 C70 24 68 34 50 46Z" fill="#2b2b36"/>
+  </symbol>
+
+  <symbol id="st-moon" viewBox="0 0 100 100">
+    <path d="M66 6 A46 46 0 1 0 94 72 A38 38 0 1 1 66 6Z" fill="#ffd36b"/>
+    <circle cx="36" cy="58" r="6" fill="#f3b94a" opacity=".7"/><circle cx="52" cy="76" r="4" fill="#f3b94a" opacity=".7"/>
+  </symbol>
+
+  <symbol id="st-cherry" viewBox="0 0 100 100">
+    <path d="M30 70 C34 40 48 22 70 10 M70 78 C70 48 70 28 70 10" stroke="#3f8f3f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M70 10 C84 8 92 14 94 22 C84 24 76 20 70 10Z" fill="#4faa4f"/>
+    <circle cx="28" cy="76" r="19" fill="#e0294f"/><circle cx="71" cy="80" r="19" fill="#e0294f"/>
+    <circle cx="21" cy="69" r="5" fill="#fff" opacity=".55"/><circle cx="64" cy="73" r="5" fill="#fff" opacity=".55"/>
+  </symbol>
+
+  <symbol id="st-camera" viewBox="0 0 120 90">
+    <rect x="6" y="18" width="108" height="66" rx="13" fill="#dfe3ea"/>
+    <rect x="22" y="7" width="28" height="15" rx="5" fill="#c4cad4"/>
+    <circle cx="60" cy="52" r="25" fill="#2a3040"/><circle cx="60" cy="52" r="18" fill="url(#lens)"/>
+    <circle cx="52" cy="45" r="5" fill="#fff" opacity=".7"/>
+    <rect x="92" y="28" width="14" height="9" rx="3" fill="#ff7aa8"/><rect x="14" y="70" width="92" height="3" rx="1.5" fill="#bfc6d2"/>
+  </symbol>
+
+  <symbol id="st-starfish" viewBox="0 0 100 100">
+    <path d="M50 14 L58 40 L86 42 L64 58 L72 86 L50 70 L28 86 L36 58 L14 42 L42 40Z" fill="var(--c1,#ff7a6b)" stroke="var(--c1,#ff7a6b)" stroke-width="14" stroke-linejoin="round"/>
+    <g fill="#fff" opacity=".7"><circle cx="50" cy="38" r="2.4"/><circle cx="50" cy="50" r="2.4"/><circle cx="50" cy="62" r="2.4"/><circle cx="36" cy="48" r="2"/><circle cx="64" cy="48" r="2"/></g>
+  </symbol>
+
+  <symbol id="st-squiggle" viewBox="0 0 160 60">
+    <path d="M6 36 C20 6 32 6 40 30 S58 54 72 28 S96 6 108 30 S130 52 154 20" stroke="var(--c1,#fff)" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="st-clip" viewBox="0 0 40 100">
+    <path d="M12 74 V26 A10 10 0 0 1 32 26 V80 A16 16 0 0 1 0 80 V30" fill="none" stroke="#c9ced8" stroke-width="4" stroke-linecap="round" transform="translate(4 0)"/>
+  </symbol>
+</svg>
+
+<!-- ========== GALLERY ========== -->
+<main id="screen-gallery" class="screen is-active" aria-labelledby="g-title">
+  <header class="g-head">
+    <div class="g-brand">
+      <span class="wordmark" aria-label="Scrappy">Scrappy</span>
+      <svg class="g-star" viewBox="0 0 100 100" aria-hidden="true"><use href="#st-star" style="--c1:#ffcf3d;--c2:#fff0a8"/></svg>
+    </div>
+    <h1 id="g-title">Photo dumps that keep going when you swipe.</h1>
+    <p class="g-lede">Pick a roll. Every template is one long collage that gets cut into carousel slides, so the paper, tape and flowers line up from post to post.</p>
+  </header>
+  <div id="rails" class="rails"></div>
+  <footer class="g-foot">Your photos stay on this device. Nothing is uploaded.</footer>
+</main>
+
+<!-- ========== EDITOR ========== -->
+<section id="screen-edit" class="screen" aria-label="Editor">
+  <header class="bar">
+    <button class="btn btn-ghost" id="e-back" type="button"><svg class="i"><use href="#i-back"/></svg><span>Templates</span></button>
+    <h2 id="e-title" class="bar-title"></h2>
+    <button class="btn btn-primary" id="e-export" type="button"><span>Export</span><svg class="i"><use href="#i-arrow"/></svg></button>
+  </header>
+
+  <div class="stage">
+    <div id="viewport" class="viewport" tabindex="0" aria-label="Carousel canvas. Use left and right arrow keys to move between slides.">
+      <div id="board-wrap" class="board-wrap"></div>
+    </div>
+    <div class="finder" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <button class="nav nav-prev" id="e-prev" type="button" aria-label="Previous slide"><svg class="i"><use href="#i-chev-l"/></svg></button>
+    <button class="nav nav-next" id="e-next" type="button" aria-label="Next slide"><svg class="i"><use href="#i-chev-r"/></svg></button>
+  </div>
+
+  <div class="slidebar" role="group" aria-label="Slides">
+    <div id="dots" class="dots"></div>
+    <span id="slide-count" class="slide-count" aria-live="polite"></span>
+  </div>
+
+  <footer class="dock">
+    <div id="dock-default" class="dock-row">
+      <div class="progress">
+        <div class="progress-text"><strong id="p-n">0</strong> of <span id="p-total">0</span> photos</div>
+        <div class="progress-bar"><i id="p-fill"></i></div>
+        <p class="hint">Tap a photo to move or zoom it. Tap handwriting to retype it.</p>
+      </div>
+      <div class="dock-actions">
+        <button class="btn btn-quiet" id="e-samples" type="button">Try sample photos</button>
+        <button class="btn btn-quiet" id="e-clear" type="button" hidden>Clear all</button>
+        <button class="btn btn-primary btn-lg" id="e-add" type="button"><svg class="i"><use href="#i-image"/></svg><span>Add photos</span></button>
+      </div>
+    </div>
+
+    <div id="dock-sel" class="dock-row" hidden>
+      <label class="zoom">
+        <span>Zoom</span>
+        <svg class="i i-s"><use href="#i-minus"/></svg>
+        <input id="zoom" type="range" min="1" max="3" step="0.01" value="1" aria-label="Zoom photo">
+        <svg class="i i-s"><use href="#i-plus"/></svg>
+      </label>
+      <div class="dock-actions">
+        <button class="btn btn-quiet" id="s-swap" type="button"><svg class="i"><use href="#i-swap"/></svg><span>Swap</span></button>
+        <button class="btn btn-quiet btn-danger" id="s-remove" type="button"><svg class="i"><use href="#i-trash"/></svg><span>Remove</span></button>
+        <button class="btn btn-primary" id="s-done" type="button"><svg class="i"><use href="#i-check"/></svg><span>Done</span></button>
+      </div>
+    </div>
+  </footer>
+  <input id="file-multi" type="file" accept="image/*" multiple hidden>
+  <input id="file-one" type="file" accept="image/*" hidden>
+</section>
+
+<!-- ========== EXPORT ========== -->
+<section id="screen-export" class="screen" aria-label="Export">
+  <header class="bar">
+    <button class="btn btn-ghost" id="x-back" type="button"><svg class="i"><use href="#i-back"/></svg><span>Keep editing</span></button>
+    <h2 class="bar-title">Your carousel</h2>
+    <span class="bar-spacer"></span>
+  </header>
+
+  <div class="x-body">
+    <div class="x-top">
+      <p class="x-meta"><strong id="x-count"></strong> slides <span class="dot">·</span> <span id="x-dim">1080 × 1080</span> <span class="dot">·</span> PNG</p>
+      <div class="seg" role="radiogroup" aria-label="Preview layout">
+        <button type="button" role="radio" aria-checked="true" id="seg-joined" class="is-on">As you'll swipe</button>
+        <button type="button" role="radio" aria-checked="false" id="seg-split">Separate</button>
+      </div>
+    </div>
+    <div id="x-warn" class="warn" hidden></div>
+    <ol id="slices" class="slices is-joined"></ol>
+    <p class="x-note">Post them in order, 1 to <span id="x-last"></span>. Instagram keeps them in a single carousel.</p>
+  </div>
+
+  <footer class="dock dock-x">
+    <div class="dock-row">
+      <p id="x-status" class="x-status" role="status">Preparing…</p>
+      <div class="dock-actions">
+        <button class="btn btn-quiet" id="x-download" type="button" hidden>Download files</button>
+        <button class="btn btn-primary btn-lg" id="x-save" type="button"><svg class="i"><use href="#i-download"/></svg><span id="x-save-label">Save all</span></button>
+      </div>
+    </div>
+    <div class="x-progress" id="x-progress" hidden><i></i></div>
+  </footer>
+</section>
+
+<!-- UI icons (stroke, 24px) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.8" fill="currentColor"/><path d="M4 17l5-4.5 4 3.5 3-2.5 4 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M5 9h13l-3-3M19 15H6l3 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M5 7h14M10 7V4.5h4V7M7 7l1 12h8l1-12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
