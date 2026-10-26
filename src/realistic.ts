@@ -682,15 +682,12 @@ const PALACETOUR: Def = {
     const sky = cross(5, 690, 904, (x, p) => fullPhoto(x, 0, 904, RH, p), IMG.girl);
     const valley = cross(5, 826, 404, (x, p) => rip(x, 0, 404, 372, p, T({ edges: 'blr', seed: 80, wave: 8 })), IMG.bags);
 
-    /* 1 - mosaic: balcony and palace on the left, a girl by the trees on the right, small scraps between */
+    /* 1 - mosaic: balcony and palace on the left, a girl by the trees on the right, one scrap between */
     const s1 = [
       fullPhoto(512, 0, 512, RH, IMG.girl),
       fullPhoto(0, 600, 512, 680, IMG.palace),
       rip(0, 0, 512, 636, IMG.petunia, T({ edges: 'b', seed: 89 })),
-      rip(0, 0, 164, 208, IMG.strip, T({ edges: 'br', seed: 90, paper: 8, fringe: 16, wave: 6 })),
-      rip(432, 410, 196, 130, IMG.town, T({ edges: 'tblr', seed: 91, paper: 6, fringe: 12, wave: 4 })),
-      rip(330, 564, 246, 312, IMG.pancake, T({ edges: 'tblr', seed: 92, paper: 8, fringe: 14, wave: 6 })),
-      rip(512, 1154, RW - 512, 126, IMG.bg, T({ edges: 't', seed: 93, fringe: 18, wave: 6 }))
+      rip(330, 564, 246, 312, IMG.pancake, T({ edges: 'tblr', seed: 92, paper: 8, fringe: 14, wave: 6 }))
     ];
 
     /* 2 - "City Palace": one interior photo; the plaza, the postcard and the mirror selfie of slide 3 start here */
